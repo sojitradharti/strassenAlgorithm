@@ -171,7 +171,7 @@ public class Algorithms {
 
         return D;
     }
-    
+
     private int findBreakPoint() {
         Queue<Integer> bpQueue = new LinkedList<>();
         int size = 1;
@@ -227,6 +227,33 @@ public class Algorithms {
 
     }
 
-    
+    public int checkReqLength(int currLength) {
+        int reqLength = 0;
+
+        int div = 1;
+        while (currLength % div != currLength) {
+            div *= 2;
+            if (div == currLength) {
+                return div;
+            }
+        }
+        reqLength = div;
+        return reqLength;
+    }
+
+    public int[][] convertMatrixInPowerOf2(int[][] A, int matxSize) {
+        int B[][] = new int[matxSize][matxSize];
+        for (int i = 0; i < B.length; i++) {
+            for (int j = 0; j < B.length; j++) {
+                if (i < A.length && j < A.length) {
+                    B[i][j] = A[i][j];
+                } else {
+                    B[i][j] = 0;
+                }
+            }
+        }
+
+        return B;
+    }
 
 }
