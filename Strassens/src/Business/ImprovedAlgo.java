@@ -40,12 +40,12 @@ public class ImprovedAlgo {
 					A = convertMatrixInPowerOf2(A, reqLength);
 					B = convertMatrixInPowerOf2(B, reqLength);
 				}
-				C = strassenForMatrix(A, B, size, brkPoint);
+				C = StrassenMatrixAlgo(A, B, size, brkPoint);
 
 			long t3 = System.currentTimeMillis() - time;
 			
 			time = System.currentTimeMillis();
-			C = strassenForMatrix(A, B, size, -1);
+			C = StrassenMatrixAlgo(A, B, size, -1);
 			long t2 = System.currentTimeMillis() - time;
 			
 			System.out.println("_________________\nat: "+size+"\ntime by traditional method: "+t1+"ms\ntime by Strassen's Algorithm: "+t2+"ms\ntime by Improved Algorithm: "+t3+"ms");
@@ -54,19 +54,52 @@ public class ImprovedAlgo {
 	}
 
     private int[][] traditionalMatrixMultiplication(int[][] A, int[][] B) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       int C[][] = new int[A.length][A.length];
+		
+		for(int i = 0; i < A.length; i++){
+			for(int j = 0; j < A.length; j ++){
+				for(int k = 0; k < A.length; k++){
+					C[i][j] += A[i][k]*B[k][j];
+				}
+			}
+		}
+		
+		return C;
+	
     }
 
     private int checkReqLength(int length) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       int reqLength = 0;
+		
+		int div = 1;
+		while(length % div != length){
+			div *= 2;
+			if(div == length)
+				return div;
+		}
+		reqLength = div;		
+		return reqLength;
     }
 
 
-    private int[][] strassenForMatrix(int[][] A, int[][] B, int size, int breakPoint) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private int[][] StrassenMatrixAlgo(int[][] A, int[][] B, int OrgnlLength, int breakPoint) {
+       int R[][] = new int[OrgnlLength][OrgnlLength];
+		
+		int C[][] = strassen(A, B, A.length/2, breakPoint);
+		for(int i = 0; i < R.length; i++){
+			for(int j = 0; j < R.length; j++){
+				R[i][j] = C[i][j];
+			}
+		}
+		
+		return R;
     }
 
     private int[][] convertMatrixInPowerOf2(int[][] A, int requiredLength) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private int[][] strassen(int[][] A, int[][] B, int i, int breakPoint) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
