@@ -5,6 +5,7 @@
  */
 package Business;
 
+import UserInterface.mainJFrame;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
@@ -17,6 +18,13 @@ import java.util.Scanner;
  * @author Kamini Prakash
  */
 public class Algorithms {
+
+    mainJFrame mainframe;
+    
+    public Algorithms(mainJFrame aThis) {
+        mainframe = aThis;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     public int[][] traditionalMatrixMultiplication(int[][] A, int[][] B) {
         int C[][] = new int[A.length][A.length];
@@ -33,47 +41,47 @@ public class Algorithms {
     }
 
     public void run() throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File("input.txt"));
-        int n = scanner.nextInt();
-        int A[][] = new int[n][n];
-        int B[][] = new int[n][n];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                A[i][j] = scanner.nextInt();
-            }
-        }
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                B[i][j] = scanner.nextInt();
-            }
-        }
-        scanner.close();
-
-        long millis = System.nanoTime();
-        int C[][] = traditionalMatrixMultiplication(A, B);
-        System.out.println("Time taken by Traditional Multiplication : " + (System.nanoTime() - millis) + " ns\n");
-        millis = System.nanoTime();
-        int requiredLength = checkReqLength(A.length);
-
-        if (requiredLength > A.length) {
-            A = convertMatrixInPowerOf2(A, requiredLength);
-            B = convertMatrixInPowerOf2(B, requiredLength);
-        }
-
-        C = strassenForMatrix(A, B, C.length, -1);//passing -1 as breakpoint for Pure strassen's algorithm
-        System.out.println("Time taken by Strassen's Multiplication : " + (System.nanoTime() - millis) + " ns\n");
-
-        System.out.print("Multiplication Result: \n");
-        for (int i = 0; i < C.length; i++) {
-            for (int j = 0; j < C.length; j++) {
-                System.out.print(String.format(" %5d", C[i][j]));
-            }
-            System.out.print("\n");
-        }
+//        Scanner scanner = new Scanner(new File("input.txt"));
+//        int n = scanner.nextInt();
+//        int A[][] = new int[n][n];
+//        int B[][] = new int[n][n];
+//        for (int i = 0; i < n; i++) {
+//            for (int j = 0; j < n; j++) {
+//                A[i][j] = scanner.nextInt();
+//            }
+//        }
+//        for (int i = 0; i < n; i++) {
+//            for (int j = 0; j < n; j++) {
+//                B[i][j] = scanner.nextInt();
+//            }
+//        }
+//        scanner.close();
+//
+//        long millis = System.nanoTime();
+//        int C[][] = traditionalMatrixMultiplication(A, B);
+//        System.out.println("Time taken by Traditional Multiplication : " + (System.nanoTime() - millis) + " ns\n");
+//        millis = System.nanoTime();
+//        int requiredLength = checkReqLength(A.length);
+//
+//        if (requiredLength > A.length) {
+//            A = convertMatrixInPowerOf2(A, requiredLength);
+//            B = convertMatrixInPowerOf2(B, requiredLength);
+//        }
+//
+//        C = strassenForMatrix(A, B, C.length, -1);//passing -1 as breakpoint for Pure strassen's algorithm
+//        System.out.println("Time taken by Strassen's Multiplication : " + (System.nanoTime() - millis) + " ns\n");
+//
+//        System.out.print("Multiplication Result: \n");
+//        for (int i = 0; i < C.length; i++) {
+//            for (int j = 0; j < C.length; j++) {
+//                System.out.print(String.format(" %5d", C[i][j]));
+//            }
+//            System.out.print("\n");
+//        }
         int breakPoint = findBreakPoint();
 
-        ImprovedAlgo newObj = new ImprovedAlgo();
-        newObj.run(breakPoint);
+       // ImprovedAlgo newObj = new ImprovedAlgo();
+       // newObj.run(breakPoint);
 
     }
 
@@ -176,7 +184,7 @@ public class Algorithms {
         Queue<Integer> bpQueue = new LinkedList<>();
         int size = 1;
         Random rand = new Random();
-        while (size <= 16384) {
+        while (size <= 1028) {
             size *= 2;
             int A[][] = new int[size][size];
             int B[][] = new int[size][size];
@@ -190,11 +198,13 @@ public class Algorithms {
 
             String readings = String.format("%10d units", size);
             long nanos = System.currentTimeMillis();
-            if (size <= 2048) {
+            if (size <= 1028) {
                 C = traditionalMatrixMultiplication(A, B);
                 long t1 = System.currentTimeMillis() - nanos;
                 String tradTime = String.format("%10d ms", t1);
                 readings += tradTime;
+                mainframe.getDataset().addValue(t1, "Traditional", String.valueOf(size));
+                mainframe.updategraph();
             } else {
                 String tradTime = String.format("%10s   ", "NA");
                 readings += tradTime;
@@ -208,11 +218,13 @@ public class Algorithms {
                 B = convertMatrixInPowerOf2(B, reqLength);
             }
 
-            while (brkPoint < 1024) {
+            while (brkPoint < 1028) {
                 nanos = System.currentTimeMillis();
                 C = strassenForMatrix(A, B, size, brkPoint);
                 long t2 = System.currentTimeMillis() - nanos;
                 String time = String.format("%10d ms", t2);
+                 mainframe.getDataset().addValue(t2, "Traditional", String.valueOf(size));
+                mainframe.updategraph();
                 readings += time;
                 brkPoint *= 2;
             }
@@ -255,5 +267,7 @@ public class Algorithms {
 
         return B;
     }
+
+  
 
 }

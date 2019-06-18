@@ -95,11 +95,102 @@ public class ImprovedAlgo {
 		return R;
     }
 
-    private int[][] convertMatrixInPowerOf2(int[][] A, int requiredLength) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private int[][] convertMatrixInPowerOf2(int[][] A, int l) {
+        int B[][] = new int[l][l];
+		
+		for(int i = 0; i < B.length; i++){
+			for(int j = 0; j< B.length; j++){
+				if(i < A.length && j < A.length){
+					B[i][j] = A[i][j];
+				}else{
+					B[i][j] = 0;
+				}
+			}
+		}
+		
+		return B;
     }
 
-    private int[][] strassen(int[][] A, int[][] B, int i, int breakPoint) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int[][] strassen(int[][] A, int[][] B, int divide, int brkPoint) {
+        int C[][] = new int[A.length][A.length];
+
+        if (divide == 0) {
+            C[0][0] = A[0][0] * B[0][0];
+            return C;
+        }
+
+        int a[][] = new int[divide][divide];
+        int d[][] = new int[divide][divide];
+
+        int e[][] = new int[divide][divide];
+        int h[][] = new int[divide][divide];
+
+        int S1[][] = new int[divide][divide];
+        int S2[][] = new int[divide][divide];
+        int S3[][] = new int[divide][divide];
+        int S4[][] = new int[divide][divide];
+        int S5[][] = new int[divide][divide];
+        int S6[][] = new int[divide][divide];
+        int S7[][] = new int[divide][divide];
+        int S8[][] = new int[divide][divide];
+        int S9[][] = new int[divide][divide];
+        int S10[][] = new int[divide][divide];
+
+        for (int i = 0; i < divide; i++) {
+            for (int j = 0; j < divide; j++) {
+                a[i][j] = A[i][j];
+                d[i][j] = A[divide + i][divide + j];
+                e[i][j] = B[i][j];
+                h[i][j] = B[divide + i][divide + j];
+
+                S1[i][j] = B[i][divide + j] - B[divide + i][divide + j];
+                S2[i][j] = A[i][j] + A[i][divide + j];
+                S3[i][j] = A[divide + i][j] + A[divide + i][divide + j];
+                S4[i][j] = B[divide + i][j] - B[i][j];
+                S5[i][j] = A[i][j] + A[divide + i][divide + j];
+                S6[i][j] = B[i][j] + B[divide + i][divide + j];
+                S7[i][j] = A[i][divide + j] - A[divide + i][divide + j];
+                S8[i][j] = B[divide + i][j] + B[divide + i][divide + j];
+                S9[i][j] = A[i][j] - A[divide + i][j];
+                S10[i][j] = B[i][j] + B[i][divide + j];
+            }
+        }
+
+        int P[][];
+        int Q[][];
+        int R[][];
+        int S[][];
+        int T[][];
+        int U[][];
+        int V[][];
+
+        if (A.length <= brkPoint) {
+            P = traditionalMatrixMultiplication(a, S1);
+            Q = traditionalMatrixMultiplication(S2, h);
+            R = traditionalMatrixMultiplication(S3, e);
+            S = traditionalMatrixMultiplication(d, S4);
+            T = traditionalMatrixMultiplication(S5, S6);
+            U = traditionalMatrixMultiplication(S7, S8);
+            V = traditionalMatrixMultiplication(S9, S10);
+        } else {
+            P = strassen(a, S1, divide / 2, brkPoint);
+            Q = strassen(S2, h, divide / 2, brkPoint);
+            R = strassen(S3, e, divide / 2, brkPoint);
+            S = strassen(d, S4, divide / 2, brkPoint);
+            T = strassen(S5, S6, divide / 2, brkPoint);
+            U = strassen(S7, S8, divide / 2, brkPoint);
+            V = strassen(S9, S10, divide / 2, brkPoint);
+        }
+
+        for (int i = 0; i < P.length; i++) {
+            for (int j = 0; j < P.length; j++) {
+                C[i][j] = T[i][j] + S[i][j] - Q[i][j] + U[i][j];
+                C[i][P.length + j] = P[i][j] + Q[i][j];
+                C[P.length + i][j] = R[i][j] + S[i][j];
+                C[P.length + i][P.length + j] = P[i][j] + T[i][j] - R[i][j] - V[i][j];
+            }
+        }
+        return C;
     }
+	
 }

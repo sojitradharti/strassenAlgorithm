@@ -5,7 +5,11 @@
  */
 package UserInterface;
 
+import Business.Algorithms;
 import java.awt.BorderLayout;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -21,9 +25,18 @@ public class mainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form mainJFrame
      */
-    public mainJFrame() {
+    Exception FilenotException;
+    Algorithms algo;
+    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+    public DefaultCategoryDataset getDataset() {
+        return dataset;
+    }
+    public mainJFrame() throws FileNotFoundException {
         initComponents();
-        FillGraph();
+        algo = new Algorithms(this);
+        algo.run();
+        //FillGraph();
     }
 
     /**
@@ -46,7 +59,7 @@ public class mainJFrame extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 754, Short.MAX_VALUE)
+            .addGap(0, 836, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -58,9 +71,9 @@ public class mainJFrame extends javax.swing.JFrame {
             .addGap(0, 430, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(26, 26, 26)
-                    .addComponent(linechart, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(152, Short.MAX_VALUE)))
+                    .addContainerGap()
+                    .addComponent(linechart, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -113,7 +126,11 @@ public class mainJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new mainJFrame().setVisible(true);
+                try {
+                    new mainJFrame().setVisible(true);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(mainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -124,14 +141,14 @@ public class mainJFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void FillGraph() {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        
 
-        dataset.addValue(15, "schools", "1970");
-        dataset.addValue(30, "schools", "1980");
-        dataset.addValue(60, "schools", "1990");
-        dataset.addValue(120, "schools", "2000");
-        dataset.addValue(240, "schools", "2010");
-        dataset.addValue(300, "schools", "2014");
+      
+       
+        //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void updategraph() {
         JFreeChart lineChart = ChartFactory.createLineChart(
                 "lines",
                 "Years", "Number of Schools",
@@ -150,6 +167,5 @@ public class mainJFrame extends javax.swing.JFrame {
         linechart.setLayout(new java.awt.BorderLayout());
         linechart.add(chartPanel, BorderLayout.CENTER);
         linechart.validate();
-        //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
