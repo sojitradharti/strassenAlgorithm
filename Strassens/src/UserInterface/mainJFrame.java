@@ -124,35 +124,32 @@ public class mainJFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void FillGraph() {
-         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-        dataset.addValue( 15 , "schools" , "1970" );
-      dataset.addValue( 30 , "schools" , "1980" );
-      dataset.addValue( 60 , "schools" ,  "1990" );
-      dataset.addValue( 120 , "schools" , "2000" );
-      dataset.addValue( 240 , "schools" , "2010" );
-      dataset.addValue( 300 , "schools" , "2014" );
-          JFreeChart lineChart = ChartFactory.createLineChart(
-         "lines",
-         "Years","Number of Schools",
-         dataset,
-         PlotOrientation.VERTICAL,
-         true,true,false);
-         ChartPanel chartPanel = new ChartPanel( lineChart );
-         
- chartPanel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
-       // JFreeChart jfreechart = ChartFactory.createLineChart("ENTERPRISE STATISTICS", "ENTITIES", "COUNT", DCategorydata, PlotOrientation.VERTICAL, true, true, false);
+        dataset.addValue(15, "schools", "1970");
+        dataset.addValue(30, "schools", "1980");
+        dataset.addValue(60, "schools", "1990");
+        dataset.addValue(120, "schools", "2000");
+        dataset.addValue(240, "schools", "2010");
+        dataset.addValue(300, "schools", "2014");
+        JFreeChart lineChart = ChartFactory.createLineChart(
+                "lines",
+                "Years", "Number of Schools",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true, true, false);
+        ChartPanel chartPanel = new ChartPanel(lineChart);
+
+        chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
+        // JFreeChart jfreechart = ChartFactory.createLineChart("ENTERPRISE STATISTICS", "ENTITIES", "COUNT", DCategorydata, PlotOrientation.VERTICAL, true, true, false);
 
         //CategoryPlot plot = jfreechart.getCategoryPlot();
-       // plot.setRangeGridlinePaint(Color.BLACK);
-
-      
-
+        // plot.setRangeGridlinePaint(Color.BLACK);
         chartPanel.setVisible(true);
         linechart.removeAll();
         linechart.setLayout(new java.awt.BorderLayout());
         linechart.add(chartPanel, BorderLayout.CENTER);
         linechart.validate();
-      //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

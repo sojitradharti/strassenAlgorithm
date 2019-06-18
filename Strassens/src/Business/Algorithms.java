@@ -5,6 +5,10 @@
  */
 package Business;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /**
  *
  * @author Kamini Prakash
@@ -23,6 +27,38 @@ public class Algorithms {
         }
 
         return C;
+    }
+
+    public void run() throws FileNotFoundException {
+        Scanner scanner = new Scanner(new File("input.txt"));
+        int n = scanner.nextInt();
+        int A[][] = new int[n][n];
+        int B[][] = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                A[i][j] = scanner.nextInt();
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                B[i][j] = scanner.nextInt();
+            }
+        }
+        scanner.close();
+
+        long millis = System.nanoTime();
+        int C[][] = traditionalMatrixMultiplication(A, B);
+        System.out.println("Time taken by Traditional Multiplication : " + (System.nanoTime() - millis) + " ns\n");
+        millis = System.nanoTime();
+
+        System.out.print("Multiplication Result: \n");
+        for (int i = 0; i < C.length; i++) {
+            for (int j = 0; j < C.length; j++) {
+                System.out.print(String.format(" %5d", C[i][j]));
+            }
+            System.out.print("\n");
+        }
+
     }
 
 }
