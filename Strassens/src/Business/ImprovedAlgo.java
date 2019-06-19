@@ -63,7 +63,11 @@ public class ImprovedAlgo {
 			 // graph for imroved algo
 			  mainframe.getDataStrassen().addValue(t2, "By Strassen's Algorithm", String.valueOf(size));
                           mainframe.updateStrassen();
-			System.out.println("_________________\nat: "+size+"\ntime by traditional method: "+t1+"ms\ntime by Strassen's Algorithm: "+t2+"ms\ntime by Improved Algorithm: "+t3+"ms");
+			System.out.println("\nFor Matrix Size "+size+",\nTime by traditional method:          Time by Strassen's Algorithm:          Time by Improved Algorithm:");
+                        System.out.println("          "+t1 +"ms                                   "+t2+"ms                                      "+t3+"ms          ");
+                         System.out.println("\n");
+                         
+                        
 		}
 		
 	}
@@ -85,7 +89,6 @@ public class ImprovedAlgo {
 
     private int checkReqLength(int length) {
        int reqLength = 0;
-		
 		int div = 1;
 		while(length % div != length){
 			div *= 2;

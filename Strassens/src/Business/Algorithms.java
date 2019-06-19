@@ -20,7 +20,7 @@ import java.util.Scanner;
 public class Algorithms {
 
     mainJFrame mainframe;
-    
+
     public Algorithms(mainJFrame aThis) {
         mainframe = aThis;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -48,39 +48,40 @@ public class Algorithms {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 A[i][j] = scanner.nextInt();
-           }
+            }
         }
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 B[i][j] = scanner.nextInt();
             }
         }
-      scanner.close();
+        scanner.close();
 
         long millis = System.nanoTime();
         int C[][] = traditionalMatrixMultiplication(A, B);
-       System.out.println("Time taken by Traditional Multiplication : " + (System.nanoTime() - millis) + " ns\n");
-       millis = System.nanoTime();
+        System.out.println("Time taken by Traditional Multiplication : " + (System.nanoTime() - millis) + " ns\n");
+        millis = System.nanoTime();
         int requiredLength = checkReqLength(A.length);
 
-       if (requiredLength > A.length) {
-          A = convertMatrixInPowerOf2(A, requiredLength);
+        if (requiredLength > A.length) {
+            A = convertMatrixInPowerOf2(A, requiredLength);
             B = convertMatrixInPowerOf2(B, requiredLength);
-       }
+        }
 
         C = strassenForMatrix(A, B, C.length, -1);//passing -1 as breakpoint for Pure strassen's algorithm
         System.out.println("Time taken by Strassen's Multiplication : " + (System.nanoTime() - millis) + " ns\n");
 
-       System.out.print("Multiplication Result: \n");
-       for (int i = 0; i < C.length; i++) {
-           for (int j = 0; j < C.length; j++) {
+        System.out.print("Multiplication Result: \n");
+        for (int i = 0; i < C.length; i++) {
+            for (int j = 0; j < C.length; j++) {
                 System.out.print(String.format(" %5d", C[i][j]));
-           }
-           System.out.print("\n");
-    }
-       int breakPoint = findBreakPoint();
-
-       
+            }
+            System.out.print("\n");
+        }
+        System.out.print("\n");
+        System.out.print("\n");
+        System.out.print("\n");
+        int breakPoint = findBreakPoint();
 
     }
 
@@ -183,6 +184,7 @@ public class Algorithms {
         Queue<Integer> bpQueue = new LinkedList<>();
         int size = 1;
         Random rand = new Random();
+        System.out.println("         Size (N)        Trad          16           32           64           128           256          512");
         while (size <= 1024) {
             size *= 2;
             int A[][] = new int[size][size];
@@ -202,8 +204,8 @@ public class Algorithms {
                 long t1 = System.currentTimeMillis() - nanos;
                 String tradTime = String.format("%10d ms", t1);
                 readings += tradTime;
-               // mainframe.getDataset().addValue(t1, "Traditional", String.valueOf(size));
-               // mainframe.updateTraditional();
+                // mainframe.getDataset().addValue(t1, "Traditional", String.valueOf(size));
+                // mainframe.updateTraditional();
             } else {
                 String tradTime = String.format("%10s   ", "NA");
                 readings += tradTime;
@@ -217,13 +219,11 @@ public class Algorithms {
                 B = convertMatrixInPowerOf2(B, reqLength);
             }
 
-            while (brkPoint < 512) {
+            while (brkPoint < 1024) {
                 nanos = System.currentTimeMillis();
                 C = strassenForMatrix(A, B, size, brkPoint);
                 long t2 = System.currentTimeMillis() - nanos;
                 String time = String.format("%10d ms", t2);
-                 //mainframe.getDataset().addValue(t2, "Traditional", String.valueOf(size));
-               // mainframe.updategraph();
                 readings += time;
                 brkPoint *= 2;
             }
@@ -266,7 +266,5 @@ public class Algorithms {
 
         return B;
     }
-
-  
 
 }
