@@ -41,47 +41,46 @@ public class Algorithms {
     }
 
     public void run() throws FileNotFoundException {
-//        Scanner scanner = new Scanner(new File("input.txt"));
-//        int n = scanner.nextInt();
-//        int A[][] = new int[n][n];
-//        int B[][] = new int[n][n];
-//        for (int i = 0; i < n; i++) {
-//            for (int j = 0; j < n; j++) {
-//                A[i][j] = scanner.nextInt();
-//            }
-//        }
-//        for (int i = 0; i < n; i++) {
-//            for (int j = 0; j < n; j++) {
-//                B[i][j] = scanner.nextInt();
-//            }
-//        }
-//        scanner.close();
-//
-//        long millis = System.nanoTime();
-//        int C[][] = traditionalMatrixMultiplication(A, B);
-//        System.out.println("Time taken by Traditional Multiplication : " + (System.nanoTime() - millis) + " ns\n");
-//        millis = System.nanoTime();
-//        int requiredLength = checkReqLength(A.length);
-//
-//        if (requiredLength > A.length) {
-//            A = convertMatrixInPowerOf2(A, requiredLength);
-//            B = convertMatrixInPowerOf2(B, requiredLength);
-//        }
-//
-//        C = strassenForMatrix(A, B, C.length, -1);//passing -1 as breakpoint for Pure strassen's algorithm
-//        System.out.println("Time taken by Strassen's Multiplication : " + (System.nanoTime() - millis) + " ns\n");
-//
-//        System.out.print("Multiplication Result: \n");
-//        for (int i = 0; i < C.length; i++) {
-//            for (int j = 0; j < C.length; j++) {
-//                System.out.print(String.format(" %5d", C[i][j]));
-//            }
-//            System.out.print("\n");
-//        }
-      //  int breakPoint = findBreakPoint();
+        Scanner scanner = new Scanner(new File("input.txt"));
+        int n = scanner.nextInt();
+        int A[][] = new int[n][n];
+        int B[][] = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                A[i][j] = scanner.nextInt();
+           }
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                B[i][j] = scanner.nextInt();
+            }
+        }
+      scanner.close();
 
-      //  ImprovedAlgo newObj = new ImprovedAlgo();
-       // newObj.run(breakPoint);
+        long millis = System.nanoTime();
+        int C[][] = traditionalMatrixMultiplication(A, B);
+       System.out.println("Time taken by Traditional Multiplication : " + (System.nanoTime() - millis) + " ns\n");
+       millis = System.nanoTime();
+        int requiredLength = checkReqLength(A.length);
+
+       if (requiredLength > A.length) {
+          A = convertMatrixInPowerOf2(A, requiredLength);
+            B = convertMatrixInPowerOf2(B, requiredLength);
+       }
+
+        C = strassenForMatrix(A, B, C.length, -1);//passing -1 as breakpoint for Pure strassen's algorithm
+        System.out.println("Time taken by Strassen's Multiplication : " + (System.nanoTime() - millis) + " ns\n");
+
+       System.out.print("Multiplication Result: \n");
+       for (int i = 0; i < C.length; i++) {
+           for (int j = 0; j < C.length; j++) {
+                System.out.print(String.format(" %5d", C[i][j]));
+           }
+           System.out.print("\n");
+    }
+       int breakPoint = findBreakPoint();
+
+       
 
     }
 
