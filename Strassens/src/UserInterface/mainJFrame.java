@@ -182,7 +182,7 @@ public class mainJFrame extends javax.swing.JFrame {
 
     public void updateTraditional() {
         JFreeChart lineChart = ChartFactory.createLineChart(
-                "Line chart",
+                "Traditional chart",
                 "Metrix Size", "Traditional",
                 datatraditional,
                 PlotOrientation.VERTICAL,
@@ -202,7 +202,7 @@ public class mainJFrame extends javax.swing.JFrame {
     }
      public void updateStrassen() {
         JFreeChart lineChart = ChartFactory.createLineChart(
-                "line Chart",
+                "Strassen Chart",
                 "Metrix Size", "Stressen",
                 dataStrassen,
                 PlotOrientation.VERTICAL,
@@ -222,7 +222,7 @@ public class mainJFrame extends javax.swing.JFrame {
     }
       public void updateImproved() {
         JFreeChart lineChart = ChartFactory.createLineChart(
-                "line Chart",
+                "Improved Strassen's Chart",
                 "Metrix Size", "Improved Algo",
                 dataImproved,
                 PlotOrientation.VERTICAL,

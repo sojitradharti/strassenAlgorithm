@@ -22,7 +22,7 @@ public class ImprovedAlgo {
     public void run(int brkPoint){
 		int size = 1;
 		Random rand = new Random();		
-		while(size < 1024){
+		while(size < 512){
 			
 			size *= 2;
 			
@@ -40,7 +40,7 @@ public class ImprovedAlgo {
 			C = traditionalMatrixMultiplication(A, B);
 			long t1 = System.currentTimeMillis() - time;
                          // graph for traditional
-			  mainframe.getdatatraditional().addValue(t1, "Traditional", String.valueOf(size));
+			  mainframe.getdatatraditional().addValue(t1, "By Traditional Algo", String.valueOf(size));
                           mainframe.updateTraditional();
                           // graph for traditional
 			time = System.currentTimeMillis();
@@ -54,15 +54,15 @@ public class ImprovedAlgo {
 
 			long t3 = System.currentTimeMillis() - time;
 			 // graph for stressen
-			  mainframe.getDataStrassen().addValue(t3, "stressen", String.valueOf(size));
-                          mainframe.updateStrassen();
+			  mainframe.getDataImproved().addValue(t3, "By Improved Algorithm", String.valueOf(size));
+                          mainframe.updateImproved();
                            // graph for stressen
 			time = System.currentTimeMillis();
 			C = StrassenMatrixAlgo(A, B, size, -1);
 			long t2 = System.currentTimeMillis() - time;
 			 // graph for imroved algo
-			  mainframe.getDataImproved().addValue(t2, "improved", String.valueOf(size));
-                          mainframe.updateImproved();
+			  mainframe.getDataStrassen().addValue(t2, "By Strassen's Algorithm", String.valueOf(size));
+                          mainframe.updateStrassen();
 			System.out.println("_________________\nat: "+size+"\ntime by traditional method: "+t1+"ms\ntime by Strassen's Algorithm: "+t2+"ms\ntime by Improved Algorithm: "+t3+"ms");
 		}
 		
