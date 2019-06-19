@@ -78,9 +78,9 @@ public class Algorithms {
 //            }
 //            System.out.print("\n");
 //        }
-        int breakPoint = findBreakPoint();
+      //  int breakPoint = findBreakPoint();
 
-       // ImprovedAlgo newObj = new ImprovedAlgo();
+      //  ImprovedAlgo newObj = new ImprovedAlgo();
        // newObj.run(breakPoint);
 
     }
@@ -184,7 +184,7 @@ public class Algorithms {
         Queue<Integer> bpQueue = new LinkedList<>();
         int size = 1;
         Random rand = new Random();
-        while (size <= 1028) {
+        while (size <= 1024) {
             size *= 2;
             int A[][] = new int[size][size];
             int B[][] = new int[size][size];
@@ -198,13 +198,13 @@ public class Algorithms {
 
             String readings = String.format("%10d units", size);
             long nanos = System.currentTimeMillis();
-            if (size <= 1028) {
+            if (size <= 1024) {
                 C = traditionalMatrixMultiplication(A, B);
                 long t1 = System.currentTimeMillis() - nanos;
                 String tradTime = String.format("%10d ms", t1);
                 readings += tradTime;
-                mainframe.getDataset().addValue(t1, "Traditional", String.valueOf(size));
-                mainframe.updategraph();
+               // mainframe.getDataset().addValue(t1, "Traditional", String.valueOf(size));
+               // mainframe.updateTraditional();
             } else {
                 String tradTime = String.format("%10s   ", "NA");
                 readings += tradTime;
@@ -218,13 +218,13 @@ public class Algorithms {
                 B = convertMatrixInPowerOf2(B, reqLength);
             }
 
-            while (brkPoint < 1028) {
+            while (brkPoint < 512) {
                 nanos = System.currentTimeMillis();
                 C = strassenForMatrix(A, B, size, brkPoint);
                 long t2 = System.currentTimeMillis() - nanos;
                 String time = String.format("%10d ms", t2);
-                 mainframe.getDataset().addValue(t2, "Traditional", String.valueOf(size));
-                mainframe.updategraph();
+                 //mainframe.getDataset().addValue(t2, "Traditional", String.valueOf(size));
+               // mainframe.updategraph();
                 readings += time;
                 brkPoint *= 2;
             }

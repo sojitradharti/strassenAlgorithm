@@ -6,6 +6,7 @@
 package UserInterface;
 
 import Business.Algorithms;
+import Business.ImprovedAlgo;
 import java.awt.BorderLayout;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
@@ -26,16 +27,24 @@ public class mainJFrame extends javax.swing.JFrame {
      * Creates new form mainJFrame
      */
     Exception FilenotException;
-    Algorithms algo;
-    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+    ImprovedAlgo algo;
+    DefaultCategoryDataset datatraditional = new DefaultCategoryDataset();
+     DefaultCategoryDataset dataStrassen = new DefaultCategoryDataset();
+      DefaultCategoryDataset dataImproved = new DefaultCategoryDataset();
 
-    public DefaultCategoryDataset getDataset() {
-        return dataset;
+    public DefaultCategoryDataset getdatatraditional() {
+        return datatraditional;
+    }
+      public DefaultCategoryDataset getDataStrassen() {
+        return dataStrassen;
+    }
+        public DefaultCategoryDataset getDataImproved() {
+        return dataImproved;
     }
     public mainJFrame() throws FileNotFoundException {
         initComponents();
-        algo = new Algorithms(this);
-        algo.run();
+        algo = new ImprovedAlgo(this);
+        algo.run(16);
         //FillGraph();
     }
 
@@ -49,31 +58,52 @@ public class mainJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        linechart = new javax.swing.JPanel();
+        Traditional = new javax.swing.JPanel();
+        Improved = new javax.swing.JPanel();
+        strassen = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        linechart.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        Traditional.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        Improved.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        strassen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 836, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(265, Short.MAX_VALUE)
+                .addComponent(Improved, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(193, 193, 193))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(linechart, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Traditional, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(422, Short.MAX_VALUE)))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(450, Short.MAX_VALUE)
+                    .addComponent(strassen, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(8, 8, 8)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 430, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 327, Short.MAX_VALUE)
+                .addComponent(Improved, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(linechart, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
-                    .addContainerGap()))
+                    .addComponent(Traditional, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(122, Short.MAX_VALUE)))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(21, 21, 21)
+                    .addComponent(strassen, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(314, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -136,8 +166,10 @@ public class mainJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Improved;
+    private javax.swing.JPanel Traditional;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel linechart;
+    private javax.swing.JPanel strassen;
     // End of variables declaration//GEN-END:variables
 
     private void FillGraph() {
@@ -148,11 +180,11 @@ public class mainJFrame extends javax.swing.JFrame {
         //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void updategraph() {
+    public void updateTraditional() {
         JFreeChart lineChart = ChartFactory.createLineChart(
-                "lines",
-                "Years", "Number of Schools",
-                dataset,
+                "Line chart",
+                "Metrix Size", "Traditional",
+                datatraditional,
                 PlotOrientation.VERTICAL,
                 true, true, false);
         ChartPanel chartPanel = new ChartPanel(lineChart);
@@ -163,9 +195,49 @@ public class mainJFrame extends javax.swing.JFrame {
         //CategoryPlot plot = jfreechart.getCategoryPlot();
         // plot.setRangeGridlinePaint(Color.BLACK);
         chartPanel.setVisible(true);
-        linechart.removeAll();
-        linechart.setLayout(new java.awt.BorderLayout());
-        linechart.add(chartPanel, BorderLayout.CENTER);
-        linechart.validate();
+        Traditional.removeAll();
+        Traditional.setLayout(new java.awt.BorderLayout());
+        Traditional.add(chartPanel, BorderLayout.CENTER);
+        Traditional.validate();
+    }
+     public void updateStrassen() {
+        JFreeChart lineChart = ChartFactory.createLineChart(
+                "line Chart",
+                "Metrix Size", "Stressen",
+                dataStrassen,
+                PlotOrientation.VERTICAL,
+                true, true, false);
+        ChartPanel chartPanel = new ChartPanel(lineChart);
+
+        chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
+        // JFreeChart jfreechart = ChartFactory.createLineChart("ENTERPRISE STATISTICS", "ENTITIES", "COUNT", DCategorydata, PlotOrientation.VERTICAL, true, true, false);
+
+        //CategoryPlot plot = jfreechart.getCategoryPlot();
+        // plot.setRangeGridlinePaint(Color.BLACK);
+        chartPanel.setVisible(true);
+        strassen.removeAll();
+        strassen.setLayout(new java.awt.BorderLayout());
+        strassen.add(chartPanel, BorderLayout.CENTER);
+        strassen.validate();
+    }
+      public void updateImproved() {
+        JFreeChart lineChart = ChartFactory.createLineChart(
+                "line Chart",
+                "Metrix Size", "Improved Algo",
+                dataImproved,
+                PlotOrientation.VERTICAL,
+                true, true, false);
+        ChartPanel chartPanel = new ChartPanel(lineChart);
+
+        chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
+        // JFreeChart jfreechart = ChartFactory.createLineChart("ENTERPRISE STATISTICS", "ENTITIES", "COUNT", DCategorydata, PlotOrientation.VERTICAL, true, true, false);
+
+        //CategoryPlot plot = jfreechart.getCategoryPlot();
+        // plot.setRangeGridlinePaint(Color.BLACK);
+        chartPanel.setVisible(true);
+        Improved.removeAll();
+        Improved.setLayout(new java.awt.BorderLayout());
+        Improved.add(chartPanel, BorderLayout.CENTER);
+        Improved.validate();
     }
 }

@@ -5,6 +5,7 @@
  */
 package Business;
 
+import UserInterface.mainJFrame;
 import java.util.Random;
 
 /**
@@ -12,10 +13,16 @@ import java.util.Random;
  * @author sojit
  */
 public class ImprovedAlgo {
+
+    mainJFrame mainframe;
+    public ImprovedAlgo(mainJFrame aThis) {
+        mainframe = aThis;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     public void run(int brkPoint){
 		int size = 1;
 		Random rand = new Random();		
-		while(size < 2048){
+		while(size < 1024){
 			
 			size *= 2;
 			
@@ -32,7 +39,10 @@ public class ImprovedAlgo {
 			long time = System.currentTimeMillis();
 			C = traditionalMatrixMultiplication(A, B);
 			long t1 = System.currentTimeMillis() - time;
-			
+                         // graph for traditional
+			  mainframe.getdatatraditional().addValue(t1, "Traditional", String.valueOf(size));
+                          mainframe.updateTraditional();
+                          // graph for traditional
 			time = System.currentTimeMillis();
 			int reqLength = checkReqLength(A.length);
 			
@@ -43,11 +53,16 @@ public class ImprovedAlgo {
 				C = StrassenMatrixAlgo(A, B, size, brkPoint);
 
 			long t3 = System.currentTimeMillis() - time;
-			
+			 // graph for stressen
+			  mainframe.getDataStrassen().addValue(t3, "stressen", String.valueOf(size));
+                          mainframe.updateStrassen();
+                           // graph for stressen
 			time = System.currentTimeMillis();
 			C = StrassenMatrixAlgo(A, B, size, -1);
 			long t2 = System.currentTimeMillis() - time;
-			
+			 // graph for imroved algo
+			  mainframe.getDataImproved().addValue(t2, "improved", String.valueOf(size));
+                          mainframe.updateImproved();
 			System.out.println("_________________\nat: "+size+"\ntime by traditional method: "+t1+"ms\ntime by Strassen's Algorithm: "+t2+"ms\ntime by Improved Algorithm: "+t3+"ms");
 		}
 		
