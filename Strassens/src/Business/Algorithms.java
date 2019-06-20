@@ -57,10 +57,10 @@ public class Algorithms {
         }
         scanner.close();
 
-        long millis = System.nanoTime();
+        long millis = System.currentTimeMillis();
         int C[][] = traditionalMatrixMultiplication(A, B);
-        System.out.println("Time taken by Traditional Multiplication : " + (System.nanoTime() - millis) + " ns\n");
-        millis = System.nanoTime();
+        System.out.println("Time taken by Traditional Multiplication : " + (System.currentTimeMillis()- millis) + " ms\n");
+        millis = System.currentTimeMillis();
         int requiredLength = checkReqLength(A.length);
 
         if (requiredLength > A.length) {
@@ -68,8 +68,8 @@ public class Algorithms {
             B = convertMatrixInPowerOf2(B, requiredLength);
         }
 
-        C = strassenForMatrix(A, B, C.length, -1);//passing -1 as breakpoint for Pure strassen's algorithm
-        System.out.println("Time taken by Strassen's Multiplication : " + (System.nanoTime() - millis) + " ns\n");
+        C = strassenForMatrix(A, B, C.length, -1);
+        System.out.println("Time taken by Strassen's Multiplication : " + (System.currentTimeMillis() - millis) + " ms\n");
 
         System.out.print("Multiplication Result: \n");
         for (int i = 0; i < C.length; i++) {
@@ -184,7 +184,7 @@ public class Algorithms {
         Queue<Integer> bpQueue = new LinkedList<>();
         int size = 1;
         Random rand = new Random();
-        System.out.println("         Size (N)        Trad          16           32           64           128           256          512");
+        System.out.println("         Size (N)      Traditional     16           32           64           128           256          512");
         while (size <= 1024) {
             size *= 2;
             int A[][] = new int[size][size];
