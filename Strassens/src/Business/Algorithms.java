@@ -184,7 +184,7 @@ public class Algorithms {
         Queue<Integer> bpQueue = new LinkedList<>();
         int size = 1;
         Random rand = new Random();
-        System.out.println("         Size (N)        Traditional          16           32           64           128           256          512");
+        System.out.println("         Size (N)      Traditional     16           32           64           128           256          512");
         while (size <= 1024) {
             size *= 2;
             int A[][] = new int[size][size];
