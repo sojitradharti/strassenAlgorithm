@@ -45,10 +45,10 @@ public class mainJFrame extends javax.swing.JFrame {
     public mainJFrame() throws FileNotFoundException {
         initComponents();
          algo = new Algorithms(this);
-        algo.run();
+         algo.run();
         impAlgo = new ImprovedAlgo(this);
        
-        impAlgo.run(256);
+        impAlgo.run(128);
         
         //FillGraph();
     }
