@@ -22,7 +22,7 @@ public class ImprovedAlgo {
     public void run(int brkPoint){
 		int size = 1;
 		Random rand = new Random();		
-		while(size < 512){
+		while(size < 2048){
 			
 			size *= 2;
 			
